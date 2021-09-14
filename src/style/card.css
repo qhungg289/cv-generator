@@ -1,0 +1,24 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.card {
+	width: 80%;
+	font-family: "IBM Plex Sans", sans-serif;
+}
+
+h2 {
+	font-weight: 500;
+}
+
+.card-form,
+.card-preview {
+	display: flex;
+	flex-direction: column;
+}
+
+.card-form input[type="text"] {
+	padding: 1rem;
+}

@@ -1,0 +1,11 @@
+h1 {
+	font-family: "IBM Plex Mono", monospace;
+	font-weight: bold;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
