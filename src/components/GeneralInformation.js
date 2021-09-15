@@ -26,7 +26,7 @@ function Form(props) {
 				value={props.address}
 				onChange={props.onChange}
 			/>
-			<label htmlFor="phone">Phone number:</label>
+			<label htmlFor="phoneNumber">Phone number:</label>
 			<input
 				type="text"
 				name="phoneNumber"
@@ -44,7 +44,9 @@ function Form(props) {
 				value={props.email}
 				onChange={props.onChange}
 			/>
-			<input type="submit" value="Submit" />
+			<div className="btn-wrapper">
+				<input type="submit" value="Submit" />
+			</div>
 		</form>
 	);
 }
@@ -52,17 +54,19 @@ function Form(props) {
 function Preview(props) {
 	return (
 		<div className="card-preview">
-			<p>Name:</p>
+			<label>Name:</label>
 			<p>{props.name}</p>
-			<p>Address:</p>
+			<label>Address:</label>
 			<p>{props.address}</p>
-			<p>Phone number:</p>
+			<label>Phone number:</label>
 			<p>{props.phoneNumber}</p>
-			<p>Email:</p>
+			<label>Email:</label>
 			<p>{props.email}</p>
-			<button type="button" onClick={props.onClick}>
-				Edit
-			</button>
+			<div className="btn-wrapper">
+				<button type="button" onClick={props.onClick}>
+					Edit
+				</button>
+			</div>
 		</div>
 	);
 }
@@ -78,8 +82,7 @@ export default class GeneralInformation extends React.Component {
 			isSubmit: false,
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-		this.editForm = this.editForm.bind(this);
+		this.togglePreview = this.togglePreview.bind(this);
 	}
 
 	handleInputChange(event) {
@@ -88,17 +91,11 @@ export default class GeneralInformation extends React.Component {
 		});
 	}
 
-	submitForm(event) {
+	togglePreview(event) {
 		event.preventDefault();
-		this.setState({
-			isSubmit: true,
-		});
-	}
-
-	editForm() {
-		this.setState({
-			isSubmit: false,
-		});
+		this.setState((prevState) => ({
+			isSubmit: !prevState.isSubmit,
+		}));
 	}
 
 	render() {
@@ -107,7 +104,7 @@ export default class GeneralInformation extends React.Component {
 				<h2>General Information</h2>
 				{this.state.isSubmit ? (
 					<Preview
-						onClick={this.editForm}
+						onClick={this.togglePreview}
 						name={this.state.name}
 						address={this.state.address}
 						phoneNumber={this.state.phoneNumber}
@@ -115,7 +112,7 @@ export default class GeneralInformation extends React.Component {
 					/>
 				) : (
 					<Form
-						onSubmit={this.submitForm}
+						onSubmit={this.togglePreview}
 						onChange={this.handleInputChange}
 						name={this.state.name}
 						address={this.state.address}
