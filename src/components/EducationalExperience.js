@@ -1,5 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import AddMoreForm from "./AddMoreForm";
 import "../style/card.css";
 
 function Form(props) {
@@ -43,14 +44,6 @@ function Form(props) {
 	);
 }
 
-function AddMoreForm(props) {
-	return (
-		<div className="btn-wrapper">
-			<input type="button" value="Add" onClick={props.onClick} />
-		</div>
-	);
-}
-
 function Preview(props) {
 	const detailList = props.details.map((item) => {
 		return (
@@ -60,7 +53,7 @@ function Preview(props) {
 		);
 	});
 
-	return <ul>{detailList}</ul>;
+	return <ul className="card-preview">{detailList}</ul>;
 }
 
 export default class EducationalExperience extends React.Component {
@@ -116,7 +109,6 @@ export default class EducationalExperience extends React.Component {
 			<div id="educational-experience-card" className="card">
 				<h2>Educational Experience</h2>
 				{this.state.isSubmit && <Preview details={this.state.details} />}
-
 				{this.state.isAdd ? (
 					<Form
 						onSubmit={this.handleSubmit}

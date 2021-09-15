@@ -28,7 +28,7 @@ function Form(props) {
 			/>
 			<label htmlFor="phoneNumber">Phone number:</label>
 			<input
-				type="text"
+				type="tel"
 				name="phoneNumber"
 				id="phoneNumber"
 				required
@@ -37,7 +37,7 @@ function Form(props) {
 			/>
 			<label htmlFor="email">Email:</label>
 			<input
-				type="text"
+				type="email"
 				name="email"
 				id="email"
 				required
