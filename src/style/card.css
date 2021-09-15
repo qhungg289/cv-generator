@@ -5,20 +5,98 @@
 }
 
 .card {
-	width: 80%;
+	width: 90%;
+	max-width: 40rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	border-radius: 12px;
+	background-color: #fff;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 	font-family: "IBM Plex Sans", sans-serif;
 }
 
-h2 {
+.card-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.card-header p {
+	font-size: 1.5rem;
+	text-decoration: underline;
+	cursor: pointer;
+	color: #3385ff;
 	font-weight: 500;
+}
+
+h2 {
+	margin-bottom: 1.5rem;
 }
 
 .card-form,
 .card-preview {
 	display: flex;
 	flex-direction: column;
+	height: 90%;
+	justify-content: space-between;
 }
 
-.card-form input[type="text"] {
+label {
+	font-weight: 500;
+	margin-bottom: 0.25rem;
+}
+
+.card-preview p {
+	margin-bottom: 1rem;
+}
+
+.card-form input[type="text"],
+.card-form input[type="date"] {
+	font-size: 1rem;
+	margin-bottom: 1rem;
+	padding: 0.75rem 1rem;
+	background-color: #f3f5f7;
+	border: 2px solid #f3f5f7;
+	border-radius: 8px;
+}
+
+.card-form input[type="text"]:focus,
+.card-form input[type="date"]:focus {
+	outline: none;
+	border: 2px solid #d5d6d8;
+}
+
+.card-form input[type="submit"],
+.card-form input[type="button"],
+.card-preview button,
+.btn-wrapper input[type="button"] {
 	padding: 1rem;
+	width: 6rem;
+	border-radius: 100px;
+	border: none;
+	background-color: #3385ff;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.card-form input[type="submit"]:hover,
+.card-form input[type="button"]:hover,
+.card-preview button:hover,
+.btn-wrapper input[type="button"]:hover {
+	opacity: 0.9;
+}
+
+.btn-wrapper {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.btn-wrapper input {
+	margin-left: 1rem;
+}
+
+.card li {
+	list-style-position: inside;
+	margin-bottom: 1.25rem;
 }
