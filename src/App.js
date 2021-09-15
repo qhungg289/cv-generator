@@ -1,16 +1,20 @@
 import React from "react";
 import GeneralInformation from "./components/GeneralInformation";
+import EducationalExperience from "./components/EducationalExperience";
+import PracticalExperience from "./components/PracticalExperience";
 import "./style/App.css";
 
-class App extends React.Component {
+export default class App extends React.Component {
 	render() {
 		return (
 			<div className="wrapper">
-				<h1>CV Creator</h1>
+				<div>
+					<h1>CV Creator</h1>
+				</div>
 				<GeneralInformation />
+				<EducationalExperience />
+				<PracticalExperience />
 			</div>
 		);
 	}
 }
-
-export default App;
