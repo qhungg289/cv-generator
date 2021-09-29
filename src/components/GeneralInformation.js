@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/card.css";
 
 function Form(props) {
@@ -71,56 +71,58 @@ function Preview(props) {
 	);
 }
 
-export default class GeneralInformation extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			name: "",
-			address: "",
-			phoneNumber: "",
-			email: "",
-			isSubmit: false,
-		};
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.togglePreview = this.togglePreview.bind(this);
-	}
+export default function GeneralInformation() {
+	const [name, setName] = useState("");
+	const [address, setAddress] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
+	const [email, setEmail] = useState("");
+	const [isSubmit, setIsSubmit] = useState(false);
 
-	handleInputChange(event) {
-		this.setState({
-			[event.target.name]: event.target.value,
-		});
-	}
-
-	togglePreview(event) {
+	function togglePreview(event) {
 		event.preventDefault();
-		this.setState((prevState) => ({
-			isSubmit: !prevState.isSubmit,
-		}));
+		setIsSubmit(!isSubmit);
 	}
 
-	render() {
-		return (
-			<div id="general-information-card" className="card">
-				<h2>General Information</h2>
-				{this.state.isSubmit ? (
-					<Preview
-						onClick={this.togglePreview}
-						name={this.state.name}
-						address={this.state.address}
-						phoneNumber={this.state.phoneNumber}
-						email={this.state.email}
-					/>
-				) : (
-					<Form
-						onSubmit={this.togglePreview}
-						onChange={this.handleInputChange}
-						name={this.state.name}
-						address={this.state.address}
-						phoneNumber={this.state.phoneNumber}
-						email={this.state.email}
-					/>
-				)}
-			</div>
-		);
+	function handleInputChange(event) {
+		switch (event.target.name) {
+			case "name":
+				setName(event.target.value);
+				break;
+			case "address":
+				setAddress(event.target.value);
+				break;
+			case "phoneNumber":
+				setPhoneNumber(event.target.value);
+				break;
+			case "email":
+				setEmail(event.target.value);
+				break;
+			default:
+				break;
+		}
 	}
+
+	return (
+		<div id="general-information-card" className="card">
+			<h2>General Information</h2>
+			{isSubmit ? (
+				<Preview
+					onClick={togglePreview}
+					name={name}
+					address={address}
+					phoneNumber={phoneNumber}
+					email={email}
+				/>
+			) : (
+				<Form
+					onSubmit={togglePreview}
+					onChange={handleInputChange}
+					name={name}
+					address={address}
+					phoneNumber={phoneNumber}
+					email={email}
+				/>
+			)}
+		</div>
+	);
 }

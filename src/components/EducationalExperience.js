@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddMoreForm from "./AddMoreForm";
 import "../style/card.css";
@@ -56,72 +56,68 @@ function Preview(props) {
 	return <ul className="card-preview">{detailList}</ul>;
 }
 
-export default class EducationalExperience extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			details: [],
-			schoolInput: "",
-			tileOfStudyInput: "",
-			dateOfStudyInput: "",
-			isSubmit: false,
-			isAdd: false,
-		};
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.toggleEdit = this.toggleEdit.bind(this);
+export default function EducationalExperience() {
+	const [details, setDetails] = useState([]);
+	const [schoolInput, setSchoolInput] = useState("");
+	const [tileOfStudyInput, setTileOfStudyInput] = useState("");
+	const [dateOfStudyInput, setDateOfStudyInput] = useState("");
+	const [isSubmit, setIsSubmit] = useState(false);
+	const [isAdd, setIsAdd] = useState(false);
+
+	function toggleEdit() {
+		setIsSubmit(!isSubmit);
+		setIsAdd(!isAdd);
 	}
 
-	handleInputChange(event) {
-		this.setState({
-			[event.target.name]: event.target.value,
-		});
+	function handleInputChange(event) {
+		switch (event.target.name) {
+			case "schoolInput":
+				setSchoolInput(event.target.value);
+				break;
+			case "tileOfStudyInput":
+				setTileOfStudyInput(event.target.value);
+				break;
+			case "dateOfStudyInput":
+				setDateOfStudyInput(event.target.value);
+				break;
+			default:
+				break;
+		}
 	}
 
-	toggleEdit() {
-		this.setState((prevState) => ({
-			isSubmit: !prevState.isSubmit,
-			isAdd: !prevState.isAdd,
-		}));
-	}
-
-	handleSubmit(event) {
+	function handleSubmit(event) {
 		event.preventDefault();
-		this.setState({
-			isSubmit: true,
-			isAdd: false,
-			details: [
-				...this.state.details,
-				{
-					school: this.state.schoolInput,
-					tileOfStudy: this.state.tileOfStudyInput,
-					dateOfStudy: this.state.dateOfStudyInput,
-				},
-			],
-			schoolInput: "",
-			tileOfStudyInput: "",
-			dateOfStudyInput: "",
-		});
+		setIsSubmit(true);
+		setIsAdd(false);
+		setDetails([
+			...details,
+			{
+				school: schoolInput,
+				tileOfStudy: tileOfStudyInput,
+				dateOfStudy: dateOfStudyInput,
+			},
+		]);
+		setSchoolInput("");
+		setTileOfStudyInput("");
+		setDateOfStudyInput("");
 	}
 
-	render() {
-		return (
-			<div id="educational-experience-card" className="card">
-				<h2>Educational Experience</h2>
-				{this.state.isSubmit && <Preview details={this.state.details} />}
-				{this.state.isAdd ? (
-					<Form
-						onSubmit={this.handleSubmit}
-						onClick={this.toggleEdit}
-						onChange={this.handleInputChange}
-						school={this.state.schoolInput}
-						tileOfStudy={this.state.tileOfStudyInput}
-						dateOfStudy={this.state.dateOfStudyInput}
-					/>
-				) : (
-					<AddMoreForm onClick={this.toggleEdit} />
-				)}
-			</div>
-		);
-	}
+	return (
+		<div id="educational-experience-card" className="card">
+			<h2>Educational Experience</h2>
+			{isSubmit && <Preview details={details} />}
+			{isAdd ? (
+				<Form
+					onSubmit={handleSubmit}
+					onClick={toggleEdit}
+					onChange={handleInputChange}
+					school={schoolInput}
+					tileOfStudy={tileOfStudyInput}
+					dateOfStudy={dateOfStudyInput}
+				/>
+			) : (
+				<AddMoreForm onClick={toggleEdit} />
+			)}
+		</div>
+	);
 }
